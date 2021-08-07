@@ -65,6 +65,8 @@ function SWEP:OwnerChanged()
 	else
 		hook.Remove("Think", self)
 	end
+
+	self:StopFiring()
 end
 
 function SWEP:Holster()
@@ -130,7 +132,7 @@ function SWEP:StartFiring()
 	if self:GetOwner():IsPlayer() then
 		hook.Add("Move", self, function(ent, ply, mv)
 			if ply == ent:GetOwner() then
-				local speed = ply:GetWalkSpeed()
+				local speed = ply:Crouching() and ply:GetWalkSpeed() * ply:GetCrouchedWalkSpeed() or ply:GetSlowWalkSpeed()
 
 				mv:SetMaxSpeed(speed)
 				mv:SetMaxClientSpeed(speed)

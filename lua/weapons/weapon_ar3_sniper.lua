@@ -34,12 +34,21 @@ SWEP.HoldType 				= "smg"
 SWEP.Damage 				= 40
 SWEP.FireRate 				= 60 / 120
 
-SWEP.Spread 				= (1 / 60) * 2
+-- MOA = 1" per 100 yards
+SWEP.Spread 				= (1 / 60) * 2 -- 2 MOA
 
 SWEP.Zoom 					= 3
 
 function SWEP:Initialize()
 	self:SetHoldType(self.HoldType)
+
+	if CLIENT then
+		hook.Add("PlayerBindPress", self, function(_, ply, bind, pressed)
+			if bind == "+zoom" and self == ply:GetActiveWeapon() then
+				return true
+			end
+		end)
+	end
 end
 
 function SWEP:SetupDataTables()

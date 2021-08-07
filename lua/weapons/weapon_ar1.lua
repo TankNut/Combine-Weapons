@@ -210,7 +210,7 @@ if SERVER then
 	end
 
 	function SWEP:GetNPCBurstSettings()
-		return 3, 3, self.FireRate
+		return 2, 3, self.FireRate
 	end
 
 	function SWEP:GetNPCRestTimes()
